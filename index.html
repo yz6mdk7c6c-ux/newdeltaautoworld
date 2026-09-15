@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>新利達汽車城 NEW DELTA AUTOWORLD SDN BHD</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#0b0c0f;color:#f7f7f7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.nav{position:fixed;top:0;width:100%;z-index:20;background:#0b0c0fee;backdrop-filter:blur(8px);border-bottom:1px solid #24262b}
+.navin{max-width:1200px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:800;font-size:14px;line-height:1.2;cursor:pointer}
+.logo b{display:block;color:#fff}
+.logo i{color:#c8102e;font-style:normal;font-size:11px;letter-spacing:.5px;font-weight:600}
+.lang{display:flex;gap:6px}
+.lang-btn{background:#15171b;color:#ccc;border:1px solid #383b42;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;font-weight:700;font-family:inherit}
+.lang-btn.on{background:#c8102e;color:#fff;border-color:#c8102e}
+.toolbar{position:fixed;bottom:20px;right:16px;z-index:25;display:none;gap:8px;flex-direction:column}
+.tool-btn{background:#c8102e;color:#fff;border:1px solid #c8102e;border-radius:10px;padding:11px 14px;font-size:12px;cursor:pointer;font-weight:800;font-family:inherit;box-shadow:0 4px 20px #000a;position:relative;overflow:hidden}
+.tool-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.tool-btn.out{background:#15171b;color:#c8102e}
+.hero{position:relative;background:#0b0c0f;padding-top:54px}
+.hero-img-wrap{position:relative;width:100%;overflow:hidden;background:#000;line-height:0;min-height:200px}
+.hero-img{width:100%;height:auto;display:block;opacity:0;transition:opacity 1.4s ease}
+.hero-img.on{opacity:1}
+.hero-img-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(180deg,transparent 0%,#0b0c0f 100%);pointer-events:none}
+.hero-body{padding:10px 20px 60px;margin-top:-40px;position:relative;z-index:2}
+.wrap{max-width:1200px;margin:auto;width:100%}
+.tag{color:#c8102e;font-weight:700;letter-spacing:3px;font-size:12px;margin-bottom:14px}
+.hero h1{font-size:clamp(30px,6.5vw,58px);line-height:1.05;margin:0 0 16px;font-weight:900}
+.hero h1 span{color:#c8102e}
+.hero p{color:#c5c9d3;font-size:15px;line-height:1.85;margin:0 0 8px;max-width:600px}
+.hero p b{color:#fff}
+.buttons{display:flex;flex-direction:column;gap:10px;margin-top:26px;max-width:400px}
+.btn{padding:15px 22px;border-radius:10px;font-weight:800;font-size:15px;text-align:center;display:block;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.btn.red{background:#c8102e;color:#fff;box-shadow:0 6px 20px #c8102e33}
+.btn.ghost{background:#ffffff0f;color:#fff;border-color:#ffffff33}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:36px;max-width:620px}
+.stat-card{background:#15171b;border:1px solid #ffffff14;border-radius:14px;padding:16px 18px}
+.stat-card .num{font-size:20px;font-weight:900;color:#fff;line-height:1.1}
+.stat-card .lbl{font-size:11px;color:#9a9ea9;margin-top:6px}
+.stat-card.wide{grid-column:1/-1}
+.phones{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phones a{font-size:17px;font-weight:800;color:#c8102e}
+.section{padding:64px 20px}
+.section h2{font-size:28px;margin:0 0 8px;font-weight:900}
+.section .sub{color:#9a9ea9;font-size:14px;line-height:1.7;margin:0 0 28px;max-width:640px}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+.card{background:#13151a;border:1px solid #22252c;border-radius:16px;padding:24px}
+.card .ico{font-size:26px}
+.card h3{margin:14px 0 8px;font-size:17px;font-weight:800}
+.card p{color:#9a9ea9;margin:0;line-height:1.7;font-size:14px}
+.cars-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:8px}
+.car-card{background:#13151a;border:1px solid #22252c;border-radius:16px;overflow:hidden;cursor:pointer;position:relative}
+.car-card:hover{border-color:#c8102e66}
+.car-img{position:relative;aspect-ratio:16/10;background:#0b0c0f;overflow:hidden}
+.car-img img{width:100%;height:100%;object-fit:cover;display:block}
+.car-img .car-multi{position:absolute;top:10px;right:10px;background:#0b0c0fcc;color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:800;border:1px solid #c8102e66}
+.car-body{padding:16px 18px 18px}
+.car-body h3{margin:0 0 8px;font-size:16px;font-weight:800;color:#fff;line-height:1.3;min-height:42px}
+.car-price{color:#c8102e;font-size:22px;font-weight:900;margin:6px 0 10px}
+.car-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:#9a9ea9}
+.car-meta span{background:#ffffff0a;padding:4px 10px;border-radius:20px}
+.car-del{position:absolute;top:10px;left:10px;background:#0b0c0fd9;color:#ff6b6b;border:1px solid #ff6b6b;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;z-index:2}
+.car-add-btn{display:none;margin:24px auto 0;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border:2px dashed #c8102e;border-radius:12px;color:#c8102e;background:#15171b;font-weight:800;cursor:pointer;font-family:inherit;font-size:14px}
+.car-empty{text-align:center;color:#555;padding:50px 20px;font-size:14px;background:#101217;border:1px dashed #22252c;border-radius:16px}
+.car-empty b{color:#9a9ea9;display:block;font-size:16px;margin-bottom:6px}
+.form-modal{display:none;position:fixed;inset:0;background:#000d;z-index:150;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.form-modal.on{display:flex}
+.form-box{background:#15171b;border:1px solid #c8102e;border-radius:16px;padding:24px;max-width:480px;width:100%;margin:40px auto}
+.form-box h3{margin:0 0 16px;color:#c8102e;font-size:18px}
+.form-box label{display:block;font-size:12px;color:#9a9ea9;margin:12px 0 6px;font-weight:700}
+.form-box input,.form-box textarea{width:100%;padding:12px;background:#0b0c0f;border:1px solid #3a3d44;border-radius:10px;color:#fff;font-size:14px;font-family:inherit}
+.form-box textarea{min-height:70px;resize:vertical}
+.form-box input[type=file]{padding:8px;font-size:12px}
+.form-box .form-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.form-box button{padding:11px 20px;border-radius:10px;font-weight:800;font-family:inherit;cursor:pointer;border:1px solid #3a3d44;background:#0b0c0f;color:#ccc}
+.form-box .primary{background:#c8102e;color:#fff;border-color:#c8102e}
+.form-hint{color:#666;font-size:11px;margin-top:6px;line-height:1.5}
+.car-view{display:none;position:fixed;inset:0;background:#000e;z-index:260;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.car-view.on{display:flex}
+.car-view-box{background:#15171b;border:1px solid #22252c;border-radius:16px;max-width:900px;width:100%;padding:20px;position:relative;margin:40px auto}
+.car-view-close{position:absolute;top:12px;right:12px;background:#0b0c0fcc;color:#c8102e;border:1px solid #c8102e;border-radius:50%;width:36px;height:36px;font-size:18px;font-weight:900;cursor:pointer;font-family:inherit;line-height:1;z-index:2}
+.car-view-photos{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:16px}
+.car-view-photos img{width:100%;border-radius:12px;background:#0b0c0f;cursor:pointer}
+.car-view h2{margin:0 0 8px;font-size:22px;color:#fff}
+.car-view .cv-price{color:#c8102e;font-size:28px;font-weight:900;margin:8px 0}
+.car-view .cv-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.car-view .cv-meta span{background:#ffffff0a;padding:5px 12px;border-radius:20px;font-size:12px;color:#c5c9d3}
+.car-view .cv-desc{color:#9a9ea9;line-height:1.7;font-size:14px;margin:0;white-space:pre-wrap}
+.car-view .cv-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.contact{display:grid;grid-template-columns:1fr;gap:16px}
+.box{background:#13151a;border:1px solid #22252c;border-radius:16px;padding:24px}
+.row{padding:14px 0;border-bottom:1px solid #22252c}
+.row:last-of-type{border:0}
+.label{font-size:11px;color:#7a7e88;letter-spacing:1px;text-transform:uppercase}
+.value{margin-top:6px;line-height:1.7;font-size:14px}
+.value a{color:#c8102e;font-weight:700}
+.map{min-height:320px;padding:0;overflow:hidden}
+.map iframe{width:100%;height:100%;min-height:320px;border:0}
+.footer{border-top:1px solid #22252c;padding:30px 20px;text-align:center;color:#666;font-size:12px;line-height:1.8}
+.footer b{color:#c8102e}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.modal-box{background:#15171b;border:1px solid #c8102e;border-radius:16px;padding:26px;max-width:420px;width:100%}
+.modal-box h3{margin:0 0 12px;color:#c8102e}
+.modal-box input{width:100%;padding:13px;background:#0b0c0f;border:1px solid #3a3d44;border-radius:10px;color:#fff;font-size:13px;margin-bottom:12px}
+.modal-box p{color:#999;font-size:12px;line-height:1.6;margin:0 0 12px}
+.modal-box .btns{display:flex;gap:10px;justify-content:flex-end}
+.modal-box button{padding:11px 18px;border-radius:10px;font-weight:800;font-family:inherit;cursor:pointer;border:1px solid #3a3d44;background:#0b0c0f;color:#ccc}
+.modal-box .primary{background:#c8102e;color:#fff;border-color:#c8102e}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#15171b;border:1px solid #c8102e;color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;z-index:300;display:none;max-width:90%}
+.toast.on{display:block}
+.lightbox{display:none;position:fixed;inset:0;background:#000e;z-index:320;align-items:center;justify-content:center;padding:20px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:10px}
+@media(min-width:760px){
+  .hero{padding:0 20px}
+  .buttons{flex-direction:row;flex-wrap:wrap;max-width:none}
+  .btn{width:auto;display:inline-block}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stat-card.wide{grid-column:auto}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .cars-grid{grid-template-columns:repeat(3,1fr)}
+  .contact{grid-template-columns:1fr 1fr}
+  .car-view-photos{grid-template-columns:repeat(2,1fr)}
+  .section{padding:80px 20px}
+  .section h2{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="toolbar">
+  <label class="tool-btn">📸 更换背景
+    <input id="bannerInput" type="file" accept="image/*"/>
+  </label>
+  <button class="tool-btn out" id="btnLogout" type="button">🚪 退出</button>
+</div>
+
+<nav class="nav"><div class="navin">
+  <div class="logo" id="logoBox">
+    <b id="logoText">新利達汽車城</b>
+    <i id="logoSub">NEW DELTA AUTOWORLD SDN BHD</i>
+  </div>
+  <div class="lang">
+    <button class="lang-btn on" data-lang="zh" type="button">中文</button>
+    <button class="lang-btn" data-lang="ms" type="button">BM</button>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="hero-img-wrap"><img class="hero-img" id="heroImg" alt=""/></div>
+  <div class="hero-body"><div class="wrap">
+    <div class="tag" id="heroTag">NEW DELTA AUTOWORLD · JENJAROM</div>
+    <h1 id="heroH1">买卖新车与二手车<br/><span>一站式的选择。</span></h1>
+    <p id="heroP">🚗 新车 · 二手车 · 收车 · 贷款协助<br/>🏢 30年经验，值得信赖<br/>📍 欢迎到店看车试驾<br/><b>电话 / WhatsApp：016-213 5959</b></p>
+    <div class="buttons">
+      <a class="btn red" href="https://wa.me/60162135959" target="_blank" id="btnWa">💬 WhatsApp 016-213 5959</a>
+      <a class="btn ghost" href="https://maps.app.goo.gl/apZvaRHLNLUzcTfH7?g_st=ic" target="_blank" id="btnMap">📍 Google 地图</a>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="num">30+</div><div class="lbl" id="st1">年经验</div></div>
+      <div class="stat-card"><div class="num">500+</div><div class="lbl" id="st2">成交客户</div></div>
+      <div class="stat-card wide">
+        <div class="lbl" id="st3">电话 / WhatsApp</div>
+        <div class="phones"><a href="tel:+60162135959">📞 016-213 5959</a></div>
+      </div>
+    </div>
+  </div></div>
+</header>
+
+<section class="section" id="cars"><div class="wrap">
+  <h2 id="carsH2">现车一览</h2>
+  <p class="sub" id="carsSub">新车 / 二手车 — 点击看详情，欢迎 WhatsApp 询问。</p>
+  <div class="cars-grid" id="carsGrid"></div>
+  <div class="car-empty" id="carEmpty">
+    <b id="emptyTitle">🚗 还没有上架车辆</b>
+    <span id="emptySub">店主登入后可点下方按钮添加</span>
+  </div>
+  <button class="car-add-btn" id="carAddBtn" type="button">＋ 添加车辆</button>
+</div></section>
+
+<section class="section" id="services"><div class="wrap">
+  <h2 id="svcH2">我们的服务</h2>
+  <p class="sub" id="svcSub">从买车到卖车，我们提供一站式协助。</p>
+  <div class="grid" id="svcGrid"></div>
+</div></section>
+
+<section class="section" id="about"><div class="wrap">
+  <h2 id="aboutH2">关于新利達汽車城</h2>
+  <p class="sub" id="aboutSub">新利達汽車城（NEW DELTA AUTOWORLD SDN BHD）位于 Jenjarom，是一家经营多年的汽车销售公司，专门买卖新车、二手车，并提供收车与贷款协助服务。我们秉持诚信交易，让顾客买得安心、卖得放心。</p>
+  <div class="grid" id="aboutGrid"></div>
+</div></section>
+
+<section class="section" id="contact"><div class="wrap">
+  <h2 id="contactH2">联系我们</h2>
+  <div class="contact">
+    <div class="box">
+      <div class="row"><div class="label">ADDRESS</div><div class="value">Lot 458-H, Batu 14 1/2, Jalan Klang Banting, 42610 Jenjarom, Selangor</div></div>
+      <div class="row"><div class="label">WHATSAPP</div><div class="value"><a href="tel:+60162135959">016-213 5959</a></div></div>
+      <div class="row"><div class="label">BUSINESS</div><div class="value" id="bizVal">新车 / 二手车买卖 · 收车 · 贷款协助</div></div>
+      <div class="buttons" style="max-width:280px">
+        <a class="btn red" href="https://wa.me/60162135959" target="_blank">💬 WhatsApp</a>
+        <a class="btn ghost" href="https://maps.app.goo.gl/apZvaRHLNLUzcTfH7?g_st=ic" target="_blank">Google Maps</a>
+      </div>
+    </div>
+    <div class="box map"><iframe loading="lazy" src="https://www.google.com/maps?q=Lot%20458-H,%20Batu%2014%201/2,%20Jalan%20Klang%20Banting,%2042610%20Jenjarom,%20Selangor&amp;output=embed"></iframe></div>
+  </div>
+</div></section>
+
+<footer class="footer">
+  <div><b>NEW DELTA AUTOWORLD SDN BHD</b></div>
+  <div id="footerText">© 2026 新利達汽車城 · Jenjarom, Selangor</div>
+</footer>
+
+<div class="form-modal" id="carFormModal">
+  <div class="form-box">
+    <h3>🚗 添加车辆</h3>
+    <label>车名 *</label>
+    <input id="carName" type="text" placeholder="例：Toyota Vios 1.5 G"/>
+    <label>价格 *</label>
+    <input id="carPrice" type="text" placeholder="例：RM 45,000"/>
+    <label>年份</label>
+    <input id="carYear" type="text" placeholder="例：2020"/>
+    <label>说明（可选）</label>
+    <textarea id="carDesc" placeholder="例：低里程、原厂漆、可贷款"></textarea>
+    <label>照片（可多选）</label>
+    <input id="carPhotos" type="file" accept="image/*" multiple/>
+    <div class="form-hint">建议 1-5 张，第一张为主图。</div>
+    <div class="form-btns">
+      <button type="button" id="carFormCancel">取消</button>
+      <button type="button" class="primary" id="carFormSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="car-view" id="carView">
+  <div class="car-view-box">
+    <button class="car-view-close" id="carViewClose" type="button">✕</button>
+    <div class="car-view-photos" id="carViewPhotos"></div>
+    <h2 id="carViewName"></h2>
+    <div class="cv-price" id="carViewPrice"></div>
+    <div class="cv-meta" id="carViewMeta"></div>
+    <p class="cv-desc" id="carViewDesc"></p>
+    <div class="cv-actions">
+      <a class="btn red" id="carViewWa" href="https://wa.me/60162135959" target="_blank">💬 WhatsApp 询问</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="tokenModal">
+  <div class="modal-box">
+    <h3>🔐 店主登录</h3>
+    <p>粘贴你的 GitHub Token（以 ghp_ 开头），只有你能上传车辆。</p>
+    <input id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off"/>
+    <div class="btns">
+      <button type="button" id="btnCancel">取消</button>
+      <button type="button" class="primary" id="btnSaveToken">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""/></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var OWNER = 'yz6mdk7c6c-ux';
+  var REPO = 'newdeltaautoworld';
+  var BRANCH = 'main';
+  var FOLDER = 'photos';
+  var BASE = 'https://' + OWNER + '.github.io/' + REPO + '/photos/';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
+  var TOKEN_KEY = 'nd_gh_token';
+  var BANNER_NAME = 'banner1.jpg';
+
+  var token = '';
+  var isOwner = false;
+  var cars = [];
+  var carsLoaded = false;
+  var currentLang = 'zh';
+
+  function toast(msg, ms){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    clearTimeout(t._t);
+    t._t = setTimeout(function(){ t.classList.remove('on'); }, ms || 2200);
+  }
+
+  function extOf(file){
+    var m = file.name.match(/\.(\w+)$/);
+    if (m) return m[1].toLowerCase();
+    return file.type.indexOf('video/') === 0 ? 'mp4' : 'jpg';
+  }
+
+  function fileToBase64(file){
+    return new Promise(function(res, rej){
+      var r = new FileReader();
+      r.onload = function(){ res(r.result.split(',')[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  function strToBase64(str){ return btoa(unescape(encodeURIComponent(str))); }
+  function base64ToStr(b64){ return decodeURIComponent(escape(atob(b64.replace(/\s/g,'')))); }
+
+  async function compressImage(file){
+    if (file.size < 400 * 1024) return file;
+    try {
+      var img = await new Promise(function(res, rej){
+        var i = new Image();
+        i.onload = function(){ res(i); };
+        i.onerror = rej;
+        i.src = URL.createObjectURL(file);
+      });
+      var MAX = 1600;
+      var w = img.width, h = img.height;
+      if (w > MAX || h > MAX){
+        if (w > h){ h = Math.round(h * MAX / w); w = MAX; }
+        else { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      var c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      var blob = await new Promise(function(res){
+        c.toBlob(function(b){ res(b); }, 'image/jpeg', 0.82);
+      });
+      URL.revokeObjectURL(img.src);
+      if (!blob) return file;
+      return new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', {type:'image/jpeg'});
+    } catch(e){ return file; }
+  }
+
+  async function ghUpload(file, filename){
+    if (!token) throw new Error('未登录');
+    var url = API + encodeURIComponent(FOLDER + '/' + filename);
+    var sha = null;
+    try {
+      var chk = await fetch(url + '?ref=' + BRANCH, {
+        headers: { 'Authorization': 'token ' + token }
+      });
+      if (chk.ok){ var d = await chk.json(); sha = d.sha; }
+    } catch(e){}
+    var body = { message: 'Upload ' + filename, content: await fileToBase64(file), branch: BRANCH };
+    if (sha) body.sha = sha;
+    var res = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('上传失败: ' + res.status);
+    return true;
+  }
+
+  async function ghPutJson(filename, data){
+    if (!token) throw new Error('未登录');
+    var url = API + filename;
+    var sha = null;
+    try {
+      var chk = await fetch(url + '?ref=' + BRANCH, {
+        headers: { 'Authorization': 'token ' + token }
+      });
+      if (chk.ok){ var d = await chk.json(); sha = d.sha; }
+    } catch(e){}
+    var body = {
+      message: 'Update ' + filename,
+      content: strToBase64(JSON.stringify(data, null, 2)),
+      branch: BRANCH
+    };
+    if (sha) body.sha = sha;
+    var res = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('保存失败: ' + res.status);
+    return true;
+  }
+
+  async function ghGetJson(filename){
+    try {
+      var res = await fetch(API + filename + '?ref=' + BRANCH + '&t=' + Date.now(), {
+        headers: token ? { 'Authorization': 'token ' + token } : {}
+      });
+      if (!res.ok) return [];
+      var d = await res.json();
+      return JSON.parse(base64ToStr(d.content));
+    } catch(e){ return []; }
+  }
+
+  function loadBanner(retry){
+    retry = retry || 0;
+    var url = BASE + BANNER_NAME + '?t=' + Date.now() + Math.random();
+    var test = new Image();
+    test.onload = function(){
+      var el = document.getElementById('heroImg');
+      el.src = url;
+      el.classList.add('on');
+    };
+    test.onerror = function(){
+      if (retry < 6){ setTimeout(function(){ loadBanner(retry + 1); }, 2500); }
+    };
+    test.src = url;
+  }
+
+  document.getElementById('bannerInput').addEventListener('change', async function(e){
+    var f = e.target.files[0];
+    if (!f || !token) return;
+    toast('上传背景中...');
+    try {
+      var cf = await compressImage(f);
+      await ghUpload(cf, BANNER_NAME);
+      toast('✅ 背景已更新');
+      setTimeout(function(){ loadBanner(); }, 3000);
+    } catch(err){ toast('❌ ' + err.message); }
+    e.target.value = '';
+  });
+
+  function renderCars(){
+    var T = TEXT[currentLang];
+    var g = document.getElementById('carsGrid');
+    var empty = document.getElementById('carEmpty');
+    var addBtn = document.getElementById('carAddBtn');
+
+    if (!cars.length){
+      g.innerHTML = '';
+      empty.style.display = 'block';
+      document.getElementById('emptyTitle').textContent = carsLoaded ? T.emptyCars : T.loading;
+      document.getElementById('emptySub').textContent = T.emptySub;
+    } else {
+      empty.style.display = 'none';
+      g.innerHTML = cars.map(function(c, idx){
+        var first = c.photos && c.photos[0] ? (BASE + c.photos[0]) : '';
+        var multi = (c.photos && c.photos.length > 1) ? '<div class="car-multi">📷 '+c.photos.length+'</div>' : '';
+        var del = isOwner ? '<button class="car-del" data-idx="'+idx+'" type="button">🗑 删除</button>' : '';
+        return '<div class="car-card" data-idx="'+idx+'">'+del+
+          '<div class="car-img">'+(first ? '<img src="'+first+'" alt=""/>' : '')+multi+'</div>'+
+          '<div class="car-body">'+
+            '<h3>'+(c.name||'—')+'</h3>'+
+            '<div class="car-price">'+(c.price||'')+'</div>'+
+            '<div class="car-meta">'+(c.year ? '<span>📅 '+c.year+'</span>' : '')+'</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
+
+    g.querySelectorAll('.car-card').forEach(function(card){
+      card.addEventListener('click', function(e){
+        if (e.target.classList.contains('car-del')) return;
+        openCarView(parseInt(card.getAttribute('data-idx'), 10));
+      });
+    });
+    g.querySelectorAll('.car-del').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (!confirm('确定要删除这辆车吗？')) return;
+        var idx = parseInt(btn.getAttribute('data-idx'), 10);
+        cars.splice(idx, 1);
+        ghPutJson('cars.json', cars).then(function(){
+          toast('✅ 已删除');
+          renderCars();
+        }).catch(function(err){ toast('❌ ' + err.message); });
+      });
+    });
+
+    addBtn.style.display = isOwner ? 'inline-flex' : 'none';
+    addBtn.textContent = T.addCar;
+  }
+
+  function openCarView(idx){
+    var c = cars[idx];
+    if (!c) return;
+    var photos = (c.photos || []).map(function(p){ return BASE + p; });
+    document.getElementById('carViewPhotos').innerHTML = photos.map(function(u){
+      return '<img src="'+u+'" alt=""/>';
+    }).join('');
+    document.getElementById('carViewName').textContent = c.name || '';
+    document.getElementById('carViewPrice').textContent = c.price || '';
+    document.getElementById('carViewMeta').innerHTML = c.year ? '<span>📅 '+c.year+'</span>' : '';
+    document.getElementById('carViewDesc').textContent = c.desc || '';
+    var msg = encodeURIComponent((currentLang==='zh'?'你好，我想询问这辆车：':'Hai, saya ingin bertanya tentang kereta ini: ')+(c.name||'')+'\n'+(c.price||''));
+    document.getElementById('carViewWa').href = 'https://wa.me/60162135959?text='+msg;
+    document.querySelectorAll('#carViewPhotos img').forEach(function(img){
+      img.addEventListener('click', function(){ openLightbox(img.src); });
+    });
+    document.getElementById('carView').classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('carViewClose').addEventListener('click', function(){
+    document.getElementById('carView').classList.remove('on');
+    document.body.style.overflow = '';
+  });
+
+  function openLightbox(src){
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('on');
+  }
+  document.getElementById('lightbox').addEventListener('click', function(){
+    this.classList.remove('on');
+  });
+
+  document.getElementById('carAddBtn').addEventListener('click', function(){
+    if (!token){ toast('请先登录'); return; }
+    ['carName','carPrice','carYear','carDesc'].forEach(function(id){
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('carPhotos').value = '';
+    document.getElementById('carFormModal').classList.add('on');
+  });
+
+  document.getElementById('carFormCancel').addEventListener('click', function(){
+    document.getElementById('carFormModal').classList.remove('on');
+  });
+
+  document.getElementById('carFormSave').addEventListener('click', async function(){
+    var name = document.getElementById('carName').value.trim();
+    var price = document.getElementById('carPrice').value.trim();
+    var year = document.getElementById('carYear').value.trim();
+    var desc = document.getElementById('carDesc').value.trim();
+    var files = Array.prototype.slice.call(document.getElementById('carPhotos').files || []);
+    if (!name){ toast('请填车名'); return; }
+    if (!price){ toast('请填价格'); return; }
+    if (!files.length){ toast('请选至少 1 张照片'); return; }
+
+    var id = 'car-' + Date.now();
+    toast('上传 '+files.length+' 张照片中...');
+    var names = [];
+    for (var i = 0; i < files.length; i++){
+      var f = await compressImage(files[i]);
+      var ext = extOf(f);
+      var n = id + '-' + i + '.' + ext;
+      try { await ghUpload(f, n); names.push(n); } catch(e){}
+    }
+    if (!names.length){ toast('照片全部失败'); return; }
+
+    cars.push({ id: id, name: name, price: price, year: year, desc: desc, photos: names });
+    try {
+      await ghPutJson('cars.json', cars);
+      toast('✅ 已添加');
+      document.getElementById('carFormModal').classList.remove('on');
+      renderCars();
+    } catch(err){ toast('❌ ' + err.message); }
+  });
+
+  var TEXT = {
+    zh: {
+      logo:'新利達汽車城', logoSub:'NEW DELTA AUTOWORLD SDN BHD',
+      heroTag:'NEW DELTA AUTOWORLD · JENJAROM',
+      heroH1:'买卖新车与二手车<br/><span>一站式的选择。</span>',
+      heroP:'🚗 新车 · 二手车 · 收车 · 贷款协助<br/>🏢 30年经验，值得信赖<br/>📍 欢迎到店看车试驾<br/><b>电话 / WhatsApp：016-213 5959</b>',
+      wa:'💬 WhatsApp 016-213 5959',
+      mapBtn:'📍 Google 地图',
+      st1:'年经验', st2:'成交客户', st3:'电话 / WhatsApp',
+      carsH2:'现车一览', carsSub:'新车 / 二手车 — 点击看详情，欢迎 WhatsApp 询问。',
+      emptyCars:'🚗 还没有上架车辆', emptySub:'店主登入后可点下方按钮添加', loading:'加载中...',
+      svcH2:'我们的服务', svcSub:'从买车到卖车，我们提供一站式协助。',
+      svc:[
+        {i:'🚗',h:'新车买卖',p:'与多家车商合作，为您找到心仪车款。'},
+        {i:'🔑',h:'二手车交易',p:'车况透明，价格合理，欢迎到店看车。'},
+        {i:'💰',h:'高价收车',p:'想卖车？WhatsApp 照片，我们立即给您报价。'}
+      ],
+      aboutH2:'关于新利達汽車城',
+      aboutSub:'新利達汽車城（NEW DELTA AUTOWORLD SDN BHD）位于 Jenjarom，是一家经营多年的汽车销售公司，专门买卖新车、二手车，并提供收车与贷款协助服务。我们秉持诚信交易，让顾客买得安心、卖得放心。',
+      about:[
+        {i:'🚗',h:'买卖新车',p:'与多家车商合作，为您找到心仪车款。'},
+        {i:'🔑',h:'二手车交易',p:'车况透明，价格合理，欢迎到店看车。'},
+        {i:'💰',h:'高价收车',p:'想卖车？WhatsApp 照片，我们立即给您报价。'}
+      ],
+      contactH2:'联系我们',
+      footer:'© 2026 新利達汽車城 · Jenjarom, Selangor',
+      addCar:'＋ 添加车辆',
+      doc:'zh-CN'
+    },
+    ms: {
+      logo:'NEW DELTA AUTOWORLD', logoSub:'SDN BHD',
+      heroTag:'NEW DELTA AUTOWORLD · JENJAROM',
+      heroH1:'Jual Beli Kereta Baru & Terpakai<br/><span>Pilihan anda.</span>',
+      heroP:'🚗 Kereta baru · terpakai · ambil kereta · bantu loan<br/>🏢 30 tahun pengalaman, boleh dipercayai<br/>📍 Sila datang untuk test drive<br/><b>Telefon / WhatsApp: 016-213 5959</b>',
+      wa:'💬 WhatsApp 016-213 5959',
+      mapBtn:'📍 Google Maps',
+      st1:'Tahun Pengalaman', st2:'Pelanggan', st3:'Telefon / WhatsApp',
+      carsH2:'Stok Kereta', carsSub:'Kereta baru / terpakai — ketik untuk butiran, WhatsApp kami.',
+      emptyCars:'🚗 Tiada kereta', emptySub:'Pemilik boleh log masuk untuk tambah', loading:'Memuatkan...',
+      svcH2:'Perkhidmatan Kami', svcSub:'Dari beli hingga jual, kami bantu sepenuhnya.',
+      svc:[
+        {i:'🚗',h:'Jual Beli Kereta Baru',p:'Kerjasama dengan banyak pengedar, cari kereta idaman anda.'},
+        {i:'🔑',h:'Kereta Terpakai',p:'Keadaan telus, harga berpatutan, sila datang tengok.'},
+        {i:'💰',h:'Ambil Kereta Harga Tinggi',p:'Nak jual kereta? WhatsApp gambar, kami bagi harga terus.'}
+      ],
+      aboutH2:'Tentang New Delta Autoworld',
+      aboutSub:'New Delta Autoworld Sdn Bhd terletak di Jenjarom, syarikat jual beli kereta baru dan terpakai, serta bantu ambil kereta dan pinjaman. Kami mengutamakan kejujuran agar pelanggan beli dengan tenang, jual dengan yakin.',
+      about:[
+        {i:'🚗',h:'Jual Beli Kereta Baru',p:'Kerjasama dengan banyak pengedar, cari kereta idaman anda.'},
+        {i:'🔑',h:'Kereta Terpakai',p:'Keadaan telus, harga berpatutan, sila datang tengok.'},
+        {i:'💰',h:'Ambil Kereta Harga Tinggi',p:'Nak jual kereta? WhatsApp gambar, kami bagi harga terus.'}
+      ],
+      contactH2:'Hubungi Kami',
+      footer:'© 2026 New Delta Autoworld · Jenjarom, Selangor',
+      addCar:'＋ Tambah Kereta',
+      doc:'ms-MY'
+    }
+  };
+
+  function setLang(lang){
+    currentLang = lang;
+    var T = TEXT[lang];
+    document.documentElement.lang = T.doc;
+    document.title = lang === 'zh' ? '新利達汽車城 NEW DELTA AUTOWORLD SDN BHD' : 'NEW DELTA AUTOWORLD SDN BHD';
+
+    document.getElementById('logoText').textContent = T.logo;
+    document.getElementById('logoSub').textContent = T.logoSub;
+    document.getElementById('heroTag').textContent = T.heroTag;
+    document.getElementById('heroH1').innerHTML = T.heroH1;
+    document.getElementById('heroP').innerHTML = T.heroP;
+    document.getElementById('btnWa').textContent = T.wa;
+    document.getElementById('btnMap').textContent = T.mapBtn;
+    document.getElementById('st1').textContent = T.st1;
+    document.getElementById('st2').textContent = T.st2;
+    document.getElementById('st3').textContent = T.st3;
+
+    document.getElementById('carsH2').textContent = T.carsH2;
+    document.getElementById('carsSub').textContent = T.carsSub;
+    document.getElementById('emptySub').textContent = T.emptySub;
+
+    document.getElementById('svcH2').textContent = T.svcH2;
+    document.getElementById('svcSub').textContent = T.svcSub;
+    document.getElementById('svcGrid').innerHTML = T.svc.map(function(s){
+      return '<div class="card"><div class="ico">'+s.i+'</div><h3>'+s.h+'</h3><p>'+s.p+'</p></div>';
+    }).join('');
+
+    document.getElementById('aboutH2').textContent = T.aboutH2;
+    document.getElementById('aboutSub').textContent = T.aboutSub;
+    document.getElementById('aboutGrid').innerHTML = T.about.map(function(s){
+      return '<div class="card"><div class="ico">'+s.i+'</div><h3>'+s.h+'</h3><p>'+s.p+'</p></div>';
+    }).join('');
+
+    document.getElementById('contactH2').textContent = T.contactH2;
+    document.getElementById('footerText').textContent = T.footer;
+
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+    });
+    renderCars();
+    try { localStorage.setItem('ndLang', lang); } catch(e){}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      setLang(b.getAttribute('data-lang'));
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  async function loadCars(){
+    try {
+      var data = await ghGetJson('cars.json');
+      cars = Array.isArray(data) ? data : [];
+    } catch(e){ cars = []; }
+    carsLoaded = true;
+    renderCars();
+  }
+
+  function enterOwnerMode(){
+    isOwner = true;
+    document.getElementById('toolbar').style.display = 'flex';
+    renderCars();
+  }
+  function exitOwnerMode(){
+    isOwner = false;
+    document.getElementById('toolbar').style.display = 'none';
+    renderCars();
+  }
+
+  function openTokenModal(){ document.getElementById('tokenModal').classList.add('on'); }
+  function closeTokenModal(){ document.getElementById('tokenModal').classList.remove('on'); }
+
+  document.getElementById('btnCancel').addEventListener('click', closeTokenModal);
+  document.getElementById('btnSaveToken').addEventListener('click', function(){
+    var v = document.getElementById('tokenInput').value.trim();
+    if (!v || (v.indexOf('ghp_') !== 0 && v.indexOf('github_pat_') !== 0)){
+      toast('Token 不对');
+      return;
+    }
+    token = v;
+    try { localStorage.setItem(TOKEN_KEY, token); } catch(e){}
+    closeTokenModal();
+    enterOwnerMode();
+    loadCars();
+    toast('✅ 已进入店主模式');
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', function(){
+    try { localStorage.removeItem(TOKEN_KEY); } catch(e){}
+    token = '';
+    exitOwnerMode();
+    toast('已退出');
+  });
+
+  try { token = localStorage.getItem(TOKEN_KEY) || ''; } catch(e){}
+  if (token) enterOwnerMode();
+
+  var logoTap = document.getElementById('logoBox');
+  var tapCount = 0, tapTimer;
+  logoTap.addEventListener('click', function(){
+    tapCount++;
+    clearTimeout(tapTimer);
+    if (tapCount >= 5){ tapCount = 0; openTokenModal(); return; }
+    tapTimer = setTimeout(function(){ tapCount = 0; }, 1500);
+  });
+  if (location.search.indexOf('owner=1') !== -1) openTokenModal();
+
+  var savedLang = 'zh';
+  try { savedLang = localStorage.getItem('ndLang') || 'zh'; } catch(e){}
+  setLang(savedLang);
+  loadCars();
+  loadBanner();
+})();
+</script>
+</body>
+</html>
